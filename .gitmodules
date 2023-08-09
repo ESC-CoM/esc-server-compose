@@ -1,0 +1,9 @@
+[submodule "esc-server"]
+	path = esc-server
+	url = https://github.com/ESC-CoM/esc-server.git
+[submodule "esc-server-config"]
+	path = esc-server-config
+	url = https://github.com/ESC-CoM/esc-server-config.git
+[submodule "esc-nginx"]
+	path = esc-nginx
+	url = https://github.com/ESC-CoM/esc-nginx.git
