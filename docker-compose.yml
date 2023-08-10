@@ -29,9 +29,27 @@ services:
     depends_on:
       esc-config:
         condition: service_healthy
+      mysql:
+        condition: service_healthy
   esc-config:
     container_name: config
     build:
       ./esc-server-config
+    networks:
+      - esc-backend-internal
+  mysql:
+    container_name: mysql
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: meeting
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3306" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - esc-backend-internal
