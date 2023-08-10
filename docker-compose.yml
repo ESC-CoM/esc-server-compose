@@ -1,0 +1,38 @@
+networks:
+  esc-backend-internal:
+    driver: bridge
+services:
+  esc-nginx:
+    container_name: nginx
+    build:
+      ./esc-nginx
+    restart: always
+    ports:
+      - 8080:8080
+      - 5723:5723
+      - 80:80
+      - 443:443
+    volumes:
+      #docker-compose.yml과 같은 레벨에 둔 nginx.conf를 mount.
+      - ./esc-nginx/:/etc/nginx/
+    env_file:
+      - .env
+    networks:
+      - esc-backend-internal
+  esc-server:
+    container_name: server
+    build:
+      ./esc-server
+    networks:
+      - esc-backend-internal
+    env_file:
+      - .env
+    depends_on:
+      esc-config:
+        condition: service_healthy
+  esc-config:
+    container_name: config
+    build:
+      ./esc-server-config
+    networks:
+      - esc-backend-internal

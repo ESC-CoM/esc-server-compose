@@ -1,3 +1,9 @@
+**/logs/
+**/conf.d/*.conf
+**/test/*
+!test/vhosts/
+
+
 HELP.md
 .gradle
 build/
