@@ -4,8 +4,7 @@ networks:
 services:
   esc-nginx:
     container_name: nginx
-    build:
-      ./esc-nginx
+    image: nginx
     restart: always
     ports:
       - 8080:8080
